@@ -15,11 +15,7 @@ const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
     maxWidth: '100%',
-    overflowX: 'hidden',
-    paddingTop: 64,
-    [theme.breakpoints.down('xs')]: {
-      paddingTop: 56
-    }
+    overflowX: 'hidden'
   }
 }));
 

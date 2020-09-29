@@ -7,21 +7,25 @@ import {
   CardMedia,
   Typography,
   Divider,
-  Link,
-  Avatar
+  Link
 } from '@material-ui/core';
 import LockIcon from '@material-ui/icons/Lock';
 import Page from 'src/components/Page';
 import gradients from 'src/utils/gradients';
 import LoginForm from './LoginForm';
+import Constants from 'src/utils/constants';
 
 const useStyles = makeStyles(theme => ({
   root: {
     height: '100%',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
-    padding: theme.spacing(6, 2)
+    justifyContent: 'end',
+    padding: theme.spacing(6, 2),
+    backgroundSize: 'cover',
+    backgroundPositionX: 'center',
+    backgroundRepeat: 'no-repeat',
+    flexDirection: 'column'
   },
   card: {
     width: theme.breakpoints.values.md,
@@ -57,7 +61,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1),
     position: 'absolute',
     top: -32,
-    left: theme.spacing(3),
+    right: theme.spacing(3),
     height: 64,
     width: 64,
     fontSize: 32
@@ -68,28 +72,36 @@ const useStyles = makeStyles(theme => ({
   divider: {
     margin: theme.spacing(2, 0)
   },
-  person: {
-    marginTop: theme.spacing(2),
-    display: 'flex'
-  },
-  avatar: {
-    marginRight: theme.spacing(2)
+  img: {
+    marginBottom: '140px'
   }
 }));
 
 function Login() {
   const classes = useStyles();
 
+  const bgImage = Constants.BACKGROUND_IMG;
+  const logo = Constants.LOGO_IMG;
+
   return (
-    <Page className={classes.root} title="Login">
+    <Page
+      className={classes.root}
+      title="Login"
+      style={{
+        backgroundImage: `url(${bgImage})`
+      }}
+    >
+      <img src={logo} alt="logo" className={classes.img} />
       <Card className={classes.card}>
+        <CardMedia
+          className={classes.media}
+          image="/images/auth.png"
+          title="Cover"
+        ></CardMedia>
         <CardContent className={classes.content}>
           <LockIcon className={classes.icon} />
           <Typography gutterBottom variant="h3">
             Sign in
-          </Typography>
-          <Typography variant="subtitle2">
-            Sign in on the internal platform
           </Typography>
           <LoginForm className={classes.loginForm} />
           <Divider className={classes.divider} />
@@ -97,41 +109,14 @@ function Login() {
             align="center"
             color="secondary"
             component={RouterLink}
-            to="/auth/register"
+            to="/auth/login"
             underline="always"
             variant="subtitle2"
           >
-            Don&apos;t have an account?
+            {/* Don&apos;t have an account? */}
+            Create New Account
           </Link>
         </CardContent>
-        <CardMedia
-          className={classes.media}
-          image="/images/auth.png"
-          title="Cover"
-        >
-          {/* <Typography
-            color="inherit"
-            variant="subtitle1"
-          >
-            Hella narvwhal Cosby sweater McSweeney&apos;s, salvia kitsch before they
-            sold out High Life.
-          </Typography> */}
-          <div className={classes.person}>
-            <Avatar
-              alt="Person"
-              className={classes.avatar}
-              src="/images/avatars/avatar_2.png"
-            />
-            <div>
-              <Typography color="inherit" variant="body1">
-                Ekaterina Tankova
-              </Typography>
-              <Typography color="inherit" variant="body2">
-                Manager at inVision
-              </Typography>
-            </div>
-          </div>
-        </CardMedia>
       </Card>
     </Page>
   );

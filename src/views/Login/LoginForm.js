@@ -19,7 +19,7 @@ const schema = {
   }
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {},
   fields: {
     margin: theme.spacing(-1),
@@ -30,8 +30,11 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1)
     }
   },
+  textField: {
+    marginTop: theme.spacing(2)
+  },
   submitButton: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(4),
     width: '100%'
   }
 }));
@@ -47,10 +50,10 @@ function LoginForm({ className, ...rest }) {
     errors: {}
   });
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     event.persist();
 
-    setFormState((prevFormState) => ({
+    setFormState(prevFormState => ({
       ...prevFormState,
       values: {
         ...prevFormState.values,
@@ -66,18 +69,19 @@ function LoginForm({ className, ...rest }) {
     }));
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async event => {
     event.preventDefault();
     // dispatch(login());
     history.push('/');
   };
 
-  const hasError = (field) => (!!(formState.touched[field] && formState.errors[field]));
+  const hasError = field =>
+    !!(formState.touched[field] && formState.errors[field]);
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
 
-    setFormState((prevFormState) => ({
+    setFormState(prevFormState => ({
       ...prevFormState,
       isValid: !errors,
       errors: errors || {}
@@ -100,6 +104,7 @@ function LoginForm({ className, ...rest }) {
           onChange={handleChange}
           value={formState.values.email || ''}
           variant="outlined"
+          className={classes.textField}
         />
         <TextField
           error={hasError('password')}
@@ -113,6 +118,7 @@ function LoginForm({ className, ...rest }) {
           type="password"
           value={formState.values.password || ''}
           variant="outlined"
+          className={classes.textField}
         />
       </div>
       <Button
